@@ -1,7 +1,6 @@
-package ge.mycompany.lms.authentication;
+package ge.mycompany.lms.usermanagement.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreType;
 import lombok.Data;
 import lombok.NoArgsConstructor;

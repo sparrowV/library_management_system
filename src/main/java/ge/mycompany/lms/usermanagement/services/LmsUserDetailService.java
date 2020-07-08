@@ -1,5 +1,7 @@
-package ge.mycompany.lms.authentication;
+package ge.mycompany.lms.usermanagement.services;
 
+import ge.mycompany.lms.usermanagement.entities.LmsUserDetails;
+import ge.mycompany.lms.usermanagement.entities.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

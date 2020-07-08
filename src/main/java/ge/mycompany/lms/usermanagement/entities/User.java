@@ -1,14 +1,15 @@
-package ge.mycompany.lms.authentication;
+package ge.mycompany.lms.usermanagement.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import ge.mycompany.lms.usermanagement.entities.Authority;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.ColumnDefault;
-import org.springframework.boot.context.properties.bind.DefaultValue;
 
 import javax.persistence.*;
-import javax.transaction.Transactional;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 @Entity
@@ -23,10 +24,13 @@ public class User {
     private Integer id;
 
     @Column(name = "username")
+    @NotBlank(message = "username should not be empty")
     private String userName;
 
     @Column(name = "password")
     @JsonIgnore
+    @NotBlank(message = "password should not be empty")
+    @Size(min = 6,message = "size must be more than 6 chars")
     private String password;
 
     @Column(name = "enabled")
@@ -36,6 +40,7 @@ public class User {
 
     @Transient
     @JsonIgnore
+    @NotBlank(message = "confirm password should not be empty")
     private String confirmPassword;
 
     @ManyToMany(fetch = FetchType.EAGER,cascade = {CascadeType.PERSIST,CascadeType.MERGE})
