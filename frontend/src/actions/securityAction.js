@@ -22,7 +22,10 @@ export const loginAction = (user, history) => async (dispatch) => {
       type: SET_USER,
       payload: res.data,
     });
-    console.log(history);
+    dispatch({
+        type: ERRORS,
+        payload: {},
+      });
     history.push("/dashboard");
   } catch (err) {
       console.log(err);
@@ -36,6 +39,10 @@ export const loginAction = (user, history) => async (dispatch) => {
 export const register = (user, history) =>async(dispatch)=> {
   try {
     const res = await axios.post("api/users/add", user);
+    dispatch({
+        type: ERRORS,
+        payload: {},
+      });
     history.push("/login");
   }catch(err){
       dispatch({

@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Login from "./components/Login";
 import DashBoard from "./components/DashBoard";
 import SecureRoute from "./components/security/SecureRoute";
+import Registration from "./components/Registration";
 
 function App() {
   return (
@@ -13,7 +14,7 @@ function App() {
       <Router>
         <div className="App">
          <Route exact path="/login" component={Login} />
-
+         <Route exact path="/register" component={Registration}/> 
           <Switch>
             <SecureRoute exact path="/dashboard" component={DashBoard} />
           </Switch>

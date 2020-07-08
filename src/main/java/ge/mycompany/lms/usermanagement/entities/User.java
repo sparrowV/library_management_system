@@ -2,7 +2,9 @@ package ge.mycompany.lms.usermanagement.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import ge.mycompany.lms.usermanagement.entities.Authority;
+import lombok.AccessLevel;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.ColumnDefault;
@@ -17,7 +19,6 @@ import java.util.List;
 @Data
 @Table(name = "users")
 public class User {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name ="id")
@@ -25,22 +26,23 @@ public class User {
 
     @Column(name = "username")
     @NotBlank(message = "username should not be empty")
-    private String userName;
+    private String username;
 
     @Column(name = "password")
-    @JsonIgnore
     @NotBlank(message = "password should not be empty")
     @Size(min = 6,message = "size must be more than 6 chars")
+    @JsonProperty(access = com.fasterxml.jackson.annotation.JsonProperty.Access.WRITE_ONLY)
     private String password;
 
     @Column(name = "enabled")
     @ColumnDefault(value = "true")
     @JsonIgnore
-    private Boolean enabled;
+    private Boolean enabled = true;
 
     @Transient
     @JsonIgnore
     @NotBlank(message = "confirm password should not be empty")
+    @JsonProperty(access = com.fasterxml.jackson.annotation.JsonProperty.Access.WRITE_ONLY)
     private String confirmPassword;
 
     @ManyToMany(fetch = FetchType.EAGER,cascade = {CascadeType.PERSIST,CascadeType.MERGE})
@@ -52,8 +54,6 @@ public class User {
     @JsonManagedReference
     @JsonIgnore
     private List<Authority> authorities;
-
-
 
 
 

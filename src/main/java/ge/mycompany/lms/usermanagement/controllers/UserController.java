@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 @RequestMapping("/api/users")
@@ -26,7 +27,7 @@ public class UserController {
     private UserService userService;
 
     @PostMapping("/add")
-    public ResponseEntity<?> addUser(@Valid @RequestBody  User user, BindingResult result){
+    public ResponseEntity<?> addUser(@Valid @RequestBody  User user, BindingResult result, HttpServletRequest req){
         userValidator.validate(user,result);
         ResponseEntity<?> errorMap = MapValidationErrorService.MapValidationService(result);
         if (errorMap != null) return errorMap;
