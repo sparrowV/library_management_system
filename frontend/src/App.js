@@ -7,6 +7,7 @@ import Login from "./components/Login";
 import DashBoard from "./components/DashBoard";
 import SecureRoute from "./components/security/SecureRoute";
 import Registration from "./components/Registration";
+import Home from "./components/Home";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <div className="App">
          <Route exact path="/login" component={Login} />
          <Route exact path="/register" component={Registration}/> 
+         <Route exact path="/" component={Home}/>
           <Switch>
             <SecureRoute exact path="/dashboard" component={DashBoard} />
           </Switch>
