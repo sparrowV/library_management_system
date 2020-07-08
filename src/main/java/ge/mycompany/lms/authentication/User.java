@@ -22,7 +22,7 @@ public class User {
     @Column(name ="id")
     private Integer id;
 
-    @Column(name = "user_name")
+    @Column(name = "username")
     private String userName;
 
     @Column(name = "password")
@@ -34,6 +34,10 @@ public class User {
     @JsonIgnore
     private Boolean enabled;
 
+    @Transient
+    @JsonIgnore
+    private String confirmPassword;
+
     @ManyToMany(fetch = FetchType.EAGER,cascade = {CascadeType.PERSIST,CascadeType.MERGE})
     @JoinTable(
             name = "user_authorities",
@@ -44,8 +48,7 @@ public class User {
     @JsonIgnore
     private List<Authority> authorities;
 
-    @Transient
-    private boolean isOperator=false;
+
 
 
 

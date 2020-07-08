@@ -19,17 +19,7 @@ public class LmsAuthenticationEntryPoint implements AuthenticationEntryPoint {
     public void commence(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse,
                          AuthenticationException e) throws IOException, ServletException {
 
-        ObjectMapper mapper = new ObjectMapper();
-        JsonNode rootNode = mapper.createObjectNode();
 
-        ObjectNode childNode1 = mapper.createObjectNode();
-        childNode1.put("username", "invalid username");
-        childNode1.put("password", "invalid password");
-
-
-        httpServletResponse.setContentType("application/json");
-        httpServletResponse.setStatus(401);
-        httpServletResponse.getWriter().print(rootNode);
 
 
     }

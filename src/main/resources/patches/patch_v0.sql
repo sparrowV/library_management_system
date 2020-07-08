@@ -1,5 +1,6 @@
 CREATE USER lms WITH PASSWORD 'lms';
 create database lmsdb owner lms;
+ALTER USER lms WITH SUPERUSER;
 create table users
 (
     id bigserial,
