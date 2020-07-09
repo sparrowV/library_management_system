@@ -18,9 +18,10 @@ import java.util.List;
 @NoArgsConstructor
 @Data
 @Table(name = "users")
+@SequenceGenerator(name ="userIdSeq" ,sequenceName = "user_id_seq")
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "userIdSeq")
     @Column(name ="id")
     private Integer id;
 

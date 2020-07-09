@@ -13,10 +13,11 @@ import java.util.List;
 @NoArgsConstructor
 @Table(name = "authorities")
 @JsonIgnoreType
+@SequenceGenerator(name="authorityIdSeq",sequenceName ="authority_id_seq")
 public class Authority {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "authorityIdSeq")
     @Column(name = "id")
     private Integer id;
 
