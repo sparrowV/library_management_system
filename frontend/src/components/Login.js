@@ -6,6 +6,7 @@ import Box from "@material-ui/core/Box";
 import { connect } from "react-redux";
 import { loginAction } from "../actions/securityAction";
 import Alert from "@material-ui/lab/Alert";
+import Header from "./Header";
 
 class Login extends React.Component {
   constructor() {
@@ -28,9 +29,7 @@ class Login extends React.Component {
     await this.props.loginAction(user, this.props.history);
   }
 
-  componentDidMount() {
-    console.log("err" + Object.entries(this.props.errors).length);
-  }
+  
 
   onChange(e) {
     e.persist();
@@ -40,6 +39,7 @@ class Login extends React.Component {
   render() {
     return (
       <div>
+      <Header/>
         {Object.entries(this.props.errors).length > 0 && 
           <Alert severity="error">{this.props.errors.username + " / "+this.props.errors.password}</Alert>
         }

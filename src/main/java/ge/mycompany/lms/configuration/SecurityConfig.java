@@ -27,8 +27,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private LmsUserDetailService customUserDetailsService;
 
-    @Autowired
-    private LmsAuthenticationEntryPoint unauthorizedHandler;
+
 
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -43,7 +42,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable()
 
-                .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
+                .exceptionHandling().and()
                 .authorizeRequests()
                 .antMatchers(
                         "/",

@@ -8,6 +8,7 @@ import DashBoard from "./components/DashBoard";
 import SecureRoute from "./components/security/SecureRoute";
 import Registration from "./components/Registration";
 import Home from "./components/Home";
+import AddBook from "./components/AddBook";
 
 function App() {
   return (
@@ -17,6 +18,8 @@ function App() {
          <Route exact path="/login" component={Login} />
          <Route exact path="/register" component={Registration}/> 
          <Route exact path="/" component={Home}/>
+         <Route exact path="/addBook" component={AddBook} />
+
           <Switch>
             <SecureRoute exact path="/dashboard" component={DashBoard} />
           </Switch>

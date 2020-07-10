@@ -20,7 +20,7 @@ public class BookService {
     public Book add(Book givenBook) {
         Book existingBook = findByTitle(givenBook.getTitle());
         if (existingBook != null) {
-            existingBook.setCount(existingBook.getCount() + givenBook.getCount());
+            existingBook.setQuantity(existingBook.getQuantity() + givenBook.getQuantity());
             return bookRepository.save(existingBook);
         }
         return bookRepository.save(givenBook);
