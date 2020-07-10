@@ -18,10 +18,10 @@ function App() {
          <Route exact path="/login" component={Login} />
          <Route exact path="/register" component={Registration}/> 
          <Route exact path="/" component={Home}/>
-         <Route exact path="/addBook" component={AddBook} />
 
           <Switch>
             <SecureRoute exact path="/dashboard" component={DashBoard} />
+            <SecureRoute exact path="/addBook" component={AddBook} />
           </Switch>
         </div>
       </Router>

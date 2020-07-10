@@ -57,11 +57,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 ).permitAll()
                 .antMatchers(SIGN_UP_URLS).permitAll()
                 .anyRequest().authenticated().
+
                 and().formLogin()
                 .loginProcessingUrl("/api/users/login")
                 .successHandler(new CustomAuthenticationSuccessHandler())
                 .failureHandler(new CustomAuthenticationFailureHandler());
 
+        http.logout().logoutSuccessHandler(new CustomLogoutSuccessHandler());
 
     }
 }

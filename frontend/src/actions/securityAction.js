@@ -23,12 +23,12 @@ export const loginAction = (user, history) => async (dispatch) => {
       payload: res.data,
     });
     dispatch({
-        type: ERRORS,
-        payload: {},
-      });
+      type: ERRORS,
+      payload: {},
+    });
     history.push("/dashboard");
   } catch (err) {
-      console.log(err);
+    console.log(err);
     dispatch({
       type: ERRORS,
       payload: err.response.data,
@@ -36,18 +36,23 @@ export const loginAction = (user, history) => async (dispatch) => {
   }
 };
 
-export const register = (user, history) =>async(dispatch)=> {
+export const register = (user, history) => async (dispatch) => {
   try {
     const res = await axios.post("api/users/add", user);
     dispatch({
-        type: ERRORS,
-        payload: {},
-      });
+      type: ERRORS,
+      payload: {},
+    });
     history.push("/login");
-  }catch(err){
-      dispatch({
-          type: ERRORS,
-          payload:err.response.data
-      })
+  } catch (err) {
+    dispatch({
+      type: ERRORS,
+      payload: err.response.data,
+    });
   }
+};
+
+export const logout = () => async (dispatch) => {
+  await axios.get("logout");
+  dispatch({ type: SET_USER, payload: {} });
 };

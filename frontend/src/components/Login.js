@@ -39,7 +39,6 @@ class Login extends React.Component {
   render() {
     return (
       <div>
-      <Header/>
         {Object.entries(this.props.errors).length > 0 && 
           <Alert severity="error">{this.props.errors.username + " / "+this.props.errors.password}</Alert>
         }
