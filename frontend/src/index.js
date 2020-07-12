@@ -4,6 +4,11 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
+
+if (module.hot && process.env.NODE_ENV !== 'production') {
+  module.hot.accept();
+}
+
 ReactDOM.render(
   <React.StrictMode>
     <App />

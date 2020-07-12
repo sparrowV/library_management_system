@@ -38,11 +38,11 @@ class Header extends React.Component {
           indicatorColor="primary"
           textColor="primary"
           onChange={this.onTabChange}
-          aria-label="disabled tabs example"
+   
         >
           <Tab label="add book" onClick={this.onAddBookClick} />
           <Tab label="logout" onClick={this.onLogoutClick} />
-          <Tab label="third" />
+          <Tab label="dashboard" onClick={()=>{this.props.history.push("/dashboard")}}/>
         </Tabs>
       </Paper>
     );

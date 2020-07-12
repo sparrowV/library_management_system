@@ -1,5 +1,7 @@
 import React from "react";
 import Header from './Header';
+import FindBook from './FindBook';
+
 
 class DashBoard extends React.Component {
   render() {
@@ -7,6 +9,8 @@ class DashBoard extends React.Component {
       <div>
         <Header />
         <div>DashBoard</div>
+        <FindBook/>
+
       </div>
     );
   }

@@ -4,7 +4,7 @@ import  Button from '@material-ui/core/Button';
 import  Box from '@material-ui/core/Box';
 import {addBook} from '../actions/bookActions';
 import {connect} from 'react-redux';
-
+import Header from './Header';
 
 class AddBook extends React.Component{
     constructor(){
@@ -39,7 +39,9 @@ class AddBook extends React.Component{
 
     render(){
         return(
-            <form
+          <div>
+          <Header/>
+          <form
             onSubmit={this.onSubmit}
             className="login-form"
             noValidate
@@ -103,6 +105,8 @@ class AddBook extends React.Component{
               </Button>
             </Box>
           </form>
+          </div>
+            
         )
     }
 

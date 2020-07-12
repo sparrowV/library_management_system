@@ -8,8 +8,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-
 import javax.validation.Valid;
+import java.util.List;
+
 
 @RestController
 @RequestMapping("/api/books")
@@ -30,4 +31,11 @@ public class BookController {
     public ResponseEntity<?> findAll(){
         return new ResponseEntity<>(bookService.findAll(),HttpStatus.OK);
     }
+
+    @GetMapping
+    public ResponseEntity<?> findBook(@RequestParam String title,@RequestParam String authorName){
+        List<Book> books = bookService.findBook(title, authorName);
+        return new ResponseEntity<>(books,HttpStatus.OK);
+    }
+
 }

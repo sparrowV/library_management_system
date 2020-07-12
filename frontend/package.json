@@ -16,8 +16,7 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1",
     "redux": "^4.0.5",
-    "redux-thunk": "^2.3.0",
-    "websocket-extensions": "^0.1.4"
+    "redux-thunk": "^2.3.0"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -28,7 +27,7 @@
   "eslintConfig": {
     "extends": "react-app"
   },
-  "proxy":"http://localhost:8080",
+  "proxy": "http://localhost:8080",
   "browserslist": {
     "production": [
       ">0.2%",
