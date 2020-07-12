@@ -6,27 +6,32 @@ import Button from "@material-ui/core/Button";
 import CustomDialog from "./CustomDialog";
 
 export default class FindBook extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
-    this.state = {
-      bookTitle: "",
-      authorName: "",
-    };
-    this.onSubmit = this.onSubmit.bind(this);
+    this.state={
+      'title':'',
+      'authorName':''
+    }
+    // this.onSubmit = this.onSubmit.bind(this);
     this.onChange = this.onChange.bind(this);
+    this.onSearchClick = this.onSearchClick.bind(this);
+  }
+
+  onSearchClick(){
+    this.props.onSearchBook(this.state.title,this.state.authorName);
   }
 
   async onSubmit(e) {
     e.preventDefault();
   
-   const res =  await axios.get('api/books/',{
-       params: {
-            title:this.state.bookTitle,
-            authorName:this.state.authorName
-        }
-    });
-    console.log(res);
+  //  const res =  await axios.get('api/books/',{
+  //      params: {
+  //           title:this.state.bookTitle,
+  //           authorName:this.state.authorName
+  //       }
+  //   });
+  //   console.log(res);
   }
 
   onChange(e) {
@@ -37,18 +42,12 @@ export default class FindBook extends React.Component {
   render() {
     return (
       <div style={{ "textAlign": "left",'margin':'1%' }}>
-        <form
-          onSubmit={this.onSubmit}
-          className="login-form"
-          noValidate
-          autoComplete="off"
-        >
+       <div>
           <TextField
             id="standard-basic"
             label="title"
             margin="normal"
-            value={this.state.bookTitle}
-            name="bookTitle"
+            name="title"
             onChange={this.onChange}
           />
           <br />
@@ -56,18 +55,17 @@ export default class FindBook extends React.Component {
             id="filled-basic"
             label="author name"
             margin="normal"
-            value={this.state.authorName}
             name="authorName"
-            onChange={this.onChange}
             autoComplete="off"
+            onChange={this.onChange}
           />
 
           <Box m={2}>
-            <Button variant="contained" color="primary" type="submit">
+            <Button variant="contained" color="primary" onClick={this.onSearchClick}>
               FIND
             </Button>
           </Box>
-        </form>
+          </div>
 
       </div>
     );
