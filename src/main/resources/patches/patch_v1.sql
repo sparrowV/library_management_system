@@ -15,3 +15,5 @@ create unique index books_title_uindex
 alter table books
     add quantity Integer default 1 not null;
 
+
+

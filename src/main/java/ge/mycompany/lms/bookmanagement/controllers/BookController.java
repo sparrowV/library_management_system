@@ -6,6 +6,7 @@ import ge.mycompany.lms.utils.MapValidationErrorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
@@ -20,6 +21,7 @@ public class BookController {
     private BookService bookService;
 
     @PostMapping("/add")
+    @PreAuthorize("hasAuthority('LIBRARIAN')")
     public ResponseEntity<?> add(@Valid @RequestBody Book book, BindingResult result) {
         ResponseEntity<?> errorsMap = MapValidationErrorService.MapValidationService(result);
         if (errorsMap != null) return errorsMap;
@@ -28,6 +30,7 @@ public class BookController {
     }
 
     @GetMapping("/all")
+    @PreAuthorize("hasAuthority('LIBRARIAN')")
     public ResponseEntity<?> findAll(){
         return new ResponseEntity<>(bookService.findAll(),HttpStatus.OK);
     }

@@ -32,12 +32,12 @@ public class User {
     @Column(name = "password")
     @NotBlank(message = "password should not be empty")
     @Size(min = 6,message = "size must be more than 6 chars")
-    @JsonProperty(access = com.fasterxml.jackson.annotation.JsonProperty.Access.WRITE_ONLY)
+//    @JsonProperty(access = com.fasterxml.jackson.annotation.JsonProperty.Access.WRITE_ONLY)
     private String password;
 
     @Column(name = "enabled")
     @ColumnDefault(value = "true")
-    @JsonIgnore
+//    @JsonIgnore
     private Boolean enabled = true;
 
     @Transient
@@ -52,10 +52,55 @@ public class User {
             joinColumns = { @JoinColumn(name = "user_id",referencedColumnName = "id") },
             inverseJoinColumns = { @JoinColumn(name = "authority_id",referencedColumnName = "id") }
     )
+
     @JsonManagedReference
-    @JsonIgnore
     private List<Authority> authorities;
 
+    public Integer getId() {
+        return id;
+    }
 
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public Boolean getEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    public String getConfirmPassword() {
+        return confirmPassword;
+    }
+
+    public void setConfirmPassword(String confirmPassword) {
+        this.confirmPassword = confirmPassword;
+    }
+
+    public List<Authority> getAuthorities() {
+        return authorities;
+    }
+
+    public void setAuthorities(List<Authority> authorities) {
+        this.authorities = authorities;
+    }
 }

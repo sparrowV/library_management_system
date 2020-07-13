@@ -21,4 +21,5 @@ public class LmsUserDetailService implements UserDetailsService {
         }
         return new LmsUserDetails(user);
     }
+
 }

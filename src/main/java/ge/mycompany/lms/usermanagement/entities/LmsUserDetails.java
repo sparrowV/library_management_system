@@ -1,16 +1,19 @@
 package ge.mycompany.lms.usermanagement.entities;
 
 import ge.mycompany.lms.usermanagement.entities.User;
+import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.stream.Collectors;
 
+@NoArgsConstructor
 public class LmsUserDetails implements UserDetails {
-    private final User user;
+    private  User user;
 
     public LmsUserDetails(User user){
         this.user = user;
@@ -19,9 +22,10 @@ public class LmsUserDetails implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         if(user.getAuthorities() == null) user.setAuthorities(new ArrayList<>());
-        return user.getAuthorities().stream()
-                .map(auth->new SimpleGrantedAuthority(auth.getAuthorityName()))
+        List<SimpleGrantedAuthority> collect = user.getAuthorities().stream()
+                .map(auth -> new SimpleGrantedAuthority(auth.getAuthorityName()))
                 .collect(Collectors.toList());
+        return collect;
     }
 
     @Override

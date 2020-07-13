@@ -20,7 +20,7 @@ class AddBook extends React.Component{
         this.onChange = this.onChange.bind(this);
     }
 
-     onSubmit(e){
+     async onSubmit(e){
         e.preventDefault();
         const book = {
           'title':this.state.title,
@@ -28,8 +28,8 @@ class AddBook extends React.Component{
           'authorName':this.state.authorName,
           'quantity':this.state.quantity
         }
-         this.props.addBook(book);
-        
+         await this.props.addBook(book);
+        this.props.history.push('/dashboard');
      }
 
     onChange(e){

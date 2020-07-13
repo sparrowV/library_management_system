@@ -12,7 +12,6 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @Table(name = "authorities")
-@JsonIgnoreType
 @SequenceGenerator(name="authorityIdSeq",sequenceName ="authority_id_seq")
 public class Authority {
 
@@ -30,4 +29,37 @@ public class Authority {
     @ManyToMany(cascade = {CascadeType.PERSIST,CascadeType.MERGE},mappedBy = "authorities")
     @JsonBackReference
     private List<User> users;
+
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getAuthorityName() {
+        return authorityName;
+    }
+
+    public void setAuthorityName(String authorityName) {
+        this.authorityName = authorityName;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
+    public List<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<User> users) {
+        this.users = users;
+    }
 }

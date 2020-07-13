@@ -5,6 +5,7 @@ import Tab from "@material-ui/core/Tab";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { logout } from "../actions/securityAction";
+import { hasAuthority } from "../utils";
 
 class Header extends React.Component {
   constructor() {
@@ -18,7 +19,7 @@ class Header extends React.Component {
 
   async onLogoutClick() {
     await this.props.logout();
-    window.location.href="/";
+    window.location.href = "/";
   }
 
   onTabChange(event, value) {
@@ -38,18 +39,20 @@ class Header extends React.Component {
           indicatorColor="primary"
           textColor="primary"
           onChange={this.onTabChange}
-   
         >
-          <Tab label="add book" onClick={this.onAddBookClick} />
+          {hasAuthority('LIBRARIAN') && (<Tab label="add book" onClick={this.onAddBookClick} /> )}
           <Tab label="logout" onClick={this.onLogoutClick} />
-          <Tab label="dashboard" onClick={()=>{this.props.history.push("/dashboard")}}/>
+          <Tab
+            label="dashboard"
+            onClick={() => {
+              this.props.history.push("/dashboard");
+            }}
+          />
         </Tabs>
       </Paper>
     );
   }
 }
 
-
-
 const headerWithRouter = withRouter(Header);
-export default connect(null, {logout})(headerWithRouter);
+export default connect(null, { logout })(headerWithRouter);

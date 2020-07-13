@@ -1,6 +1,22 @@
 CREATE USER lms WITH PASSWORD 'lms';
 create database lmsdb owner lms;
 ALTER USER lms WITH SUPERUSER;
+
+insert into users(username, password,enabled)
+values('nino','$2a$10$PbVwcT.iyutgNc3Aagre1uaH9wLZG15yz4tu0sdVRHTzInyW8bY7i',true);
+
+
+insert into authorities(authority_name,active)
+values('LIBRARIAN',true);
+
+
+
+insert into user_authorities(user_id, authority_id)
+values((select max(id)
+          from users) ,(select max(id)
+              from authorities));
+
+
 create table users
 (
     id bigserial,
