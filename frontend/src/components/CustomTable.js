@@ -16,6 +16,8 @@ import KeyboardArrowRight from "@material-ui/icons/KeyboardArrowRight";
 import LastPageIcon from "@material-ui/icons/LastPage";
 import axios from "axios";
 import TableHead from "@material-ui/core/TableHead";
+import Button from "@material-ui/core/Button";
+import { hasAuthority } from "../utils";
 
 const useStyles1 = makeStyles((theme) => ({
   root: {
@@ -127,19 +129,19 @@ export default function CustomPaginationActionsTable(props) {
   const [rows, setRows] = React.useState([]);
 
   var emptyRows = 0;
+
+  const loadBooks = async (searchParams) => {
+    const res = await axios.get("api/books", {
+      params: props.searchParams,
+    });
+    setRows(res.data);
+    emptyRows =
+      rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
+  };
+
   React.useEffect(() => {
-    console.log("here");
-    async function fetchData() {
-      const res = await axios.get("api/books", {
-        params: props.searchParams,
-      });
-      setRows(res.data);
-      emptyRows =
-        rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
-    }
     if (Object.keys(props.searchParams).length > 0) {
-      fetchData();
-      console.log("hee");
+      loadBooks(props.searchParams);
     }
   }, [props.searchParams]);
 
@@ -152,15 +154,18 @@ export default function CustomPaginationActionsTable(props) {
     setPage(0);
   };
 
+  const onBookDelete = async (id) => {
+    await axios.delete(`api/books/${id}`);
+    loadBooks(props.searchParams);
+  };
+
   return (
     <TableContainer component={Paper}>
       {rows.length}
       <Table className={classes.table} aria-label="custom pagination table">
         <TableHead>
           <TableRow>
-            <TableCell >
-              title
-            </TableCell>
+            <TableCell>title</TableCell>
             <TableCell component="th" scope="row">
               quantity
             </TableCell>
@@ -175,15 +180,21 @@ export default function CustomPaginationActionsTable(props) {
             : rows
           ).map((row) => (
             <TableRow key={row.id}>
-              <TableCell >
-                {row.title}
-              </TableCell>
-              <TableCell  >
-                {row.quantity}
-              </TableCell>
-              <TableCell  >
-                {row.authorName}
-              </TableCell>
+              <TableCell>{row.title}</TableCell>
+              <TableCell>{row.quantity}</TableCell>
+              <TableCell>{row.authorName}</TableCell>
+              {hasAuthority("LIBRARIAN") && (
+                <TableCell>
+                  <Button
+                    color="secondary"
+                    onClick={() => {
+                      onBookDelete(row.id);
+                    }}
+                  >
+                    DELETE
+                  </Button>
+                </TableCell>
+              )}
             </TableRow>
           ))}
 
