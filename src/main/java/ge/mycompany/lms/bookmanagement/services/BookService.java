@@ -2,6 +2,7 @@ package ge.mycompany.lms.bookmanagement.services;
 
 import ge.mycompany.lms.bookmanagement.entities.Book;
 import ge.mycompany.lms.bookmanagement.repositories.BookRepository;
+import ge.mycompany.lms.usermanagement.entities.LmsUserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,6 +33,10 @@ public class BookService {
 
     public List<Book> findBook(String title, String authorName) {
         return bookRepository.findByTitleOrAuthorName(title,authorName);
+
+    }
+
+    public void delete(Long id) {
 
     }
 }
