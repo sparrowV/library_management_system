@@ -6,7 +6,7 @@ Everyone can search the book ,but only librarian is allowed to add the book.
 ## FOR LICENCE  VISIT:
 [licence](https://github.com/sparrowV/library_management_system/blob/master/LICENCE)
 
-##FOR CONTRIBUTING GUIDES:
+## FOR CONTRIBUTING GUIDES:
 [guides](https://github.com/sparrowV/library_management_system/blob/master/CONTRIBUTING.md)
 
 
