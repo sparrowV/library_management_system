@@ -46,6 +46,12 @@ public class User {
     @JsonProperty(access = com.fasterxml.jackson.annotation.JsonProperty.Access.WRITE_ONLY)
     private String confirmPassword;
 
+    public User(String username,String password,String confirmPassword){
+        this.password = password;
+        this.username = username;
+        this.confirmPassword = confirmPassword;
+    }
+
     @ManyToMany(fetch = FetchType.EAGER,cascade = {CascadeType.PERSIST,CascadeType.MERGE})
     @JoinTable(
             name = "user_authorities",
