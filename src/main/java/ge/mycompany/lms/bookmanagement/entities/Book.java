@@ -1,5 +1,6 @@
 package ge.mycompany.lms.bookmanagement.entities;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import javax.persistence.*;
@@ -12,6 +13,7 @@ import javax.validation.constraints.Size;
 @Data
 @Entity
 @NoArgsConstructor
+@AllArgsConstructor
 @SequenceGenerator(name="bookIdSeq",sequenceName = "books_id_seq",allocationSize = 1)
 public class Book {
 
