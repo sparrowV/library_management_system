@@ -35,7 +35,7 @@ java -jar <name of the jar file>
 last step is to initialize database and run the scripts,
 which are located at : src/main/resources/patches
 
-##used technologies:
+##  used technologies:
 * spring boot
 * reactjs
 * postgres
