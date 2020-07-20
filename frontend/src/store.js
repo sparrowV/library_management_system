@@ -1,15 +1,22 @@
 import { createStore, applyMiddleware, compose } from "redux";
 import thunk from "redux-thunk";
 import rootReducer from "./reducers";
+import { persistStore, persistReducer } from "redux-persist";
+import storage from "redux-persist/lib/storage"; // defaults to localStorage for web
+
+const persistConfig = {
+  key: "root",
+  storage,
+};
 
 const initalState = {};
 const middleware = [thunk];
 
-let store;
 
-if (window.navigator.userAgent.includes("Chrome")) {
-  store = createStore(
-    rootReducer,
+const persistedReducer = persistReducer(persistConfig, rootReducer);
+
+export  const  store = createStore(
+    persistedReducer,
     initalState,
     compose(
       applyMiddleware(...middleware),
@@ -17,12 +24,6 @@ if (window.navigator.userAgent.includes("Chrome")) {
         window.__REDUX_DEVTOOLS_EXTENSION__()
     )
   );
-} else {
-  store = createStore(
-    rootReducer,
-    initalState,
-    compose(applyMiddleware(...middleware))
-  );
-}
 
-export default store;
+ export  const  persistor = persistStore(store);
+// export persistor;

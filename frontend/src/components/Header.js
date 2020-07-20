@@ -19,7 +19,8 @@ class Header extends React.Component {
 
   async onLogoutClick() {
     await this.props.logout();
-    window.location.href = "/";
+    // window.location.href = "/";
+    this.props.history.push("/");
   }
 
   onTabChange(event, value) {

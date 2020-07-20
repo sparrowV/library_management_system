@@ -1,5 +1,6 @@
 import axios from "axios";
-import { SET_USER, ERRORS } from "./types";
+import { SET_USER, ERRORS ,LOGOUT} from "./types";
+import {persistor} from '../store';
 
 export const loginAction = (user, history) => async (dispatch) => {
   try {
@@ -54,5 +55,6 @@ export const register = (user, history) => async (dispatch) => {
 
 export const logout = () => async (dispatch) => {
   await axios.get("logout");
-  dispatch({ type: SET_USER, payload: {} });
+  dispatch({ type: LOGOUT, payload: {} });
+  persistor.purge();
 };
