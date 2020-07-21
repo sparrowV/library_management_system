@@ -1,6 +1,6 @@
 # LIBRARY MANAGEMENT SYSTEM
 
-library management system which simplifies book management.The app has two views: user and librarian.
+library management system is open source wen app,which simplifies book management.The app has two views: user and librarian.
 Everyone can search the book ,but only librarian is allowed to add the book.
 
 ## FOR LICENCE  VISIT:
