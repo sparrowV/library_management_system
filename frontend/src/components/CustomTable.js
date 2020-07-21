@@ -123,7 +123,7 @@ const useStyles2 = makeStyles({
 });
 
 export default function CustomPaginationActionsTable(props) {
-  const classes = useStyles2();
+  // const classes = useStyles2();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [rows, setRows] = React.useState([]);
@@ -161,8 +161,7 @@ export default function CustomPaginationActionsTable(props) {
 
   return (
     <TableContainer component={Paper}>
-      {rows.length}
-      <Table className={classes.table} aria-label="custom pagination table">
+      <Table  aria-label="custom pagination table">
         <TableHead>
           <TableRow>
             <TableCell>title</TableCell>

@@ -4,8 +4,10 @@ import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import { logout } from "../actions/securityAction";
 import { hasAuthority } from "../utils";
+import UserAvatar from "./UserAvatar";
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+
 
 class Header extends React.Component {
   constructor() {
@@ -13,15 +15,10 @@ class Header extends React.Component {
 
     this.onTabChange = this.onTabChange.bind(this);
     this.onAddBookClick = this.onAddBookClick.bind(this);
-    this.onLogoutClick = this.onLogoutClick.bind(this);
     this.state = { currentTab: 0 };
   }
 
-  async onLogoutClick() {
-    await this.props.logout();
-    // window.location.href = "/";
-    this.props.history.push("/");
-  }
+
 
   onTabChange(event, value) {
     console.log(value);
@@ -33,27 +30,35 @@ class Header extends React.Component {
   }
 
   render() {
+    const style = {
+      display: "flex",
+    };
+
     return (
-      <Paper square>
-        <Tabs
-          value={this.state.currentTab}
-          indicatorColor="primary"
-          textColor="primary"
-          onChange={this.onTabChange}
-        >
-          {hasAuthority('LIBRARIAN') && (<Tab label="add book" onClick={this.onAddBookClick} /> )}
-          <Tab label="logout" onClick={this.onLogoutClick} />
-          <Tab
-            label="dashboard"
-            onClick={() => {
-              this.props.history.push("/dashboard");
-            }}
-          />
-        </Tabs>
-      </Paper>
+      <div>
+        <Paper square>
+          <Tabs
+            value={this.state.currentTab}
+            indicatorColor="primary"
+            textColor="primary"
+            onChange={this.onTabChange}
+          >
+            {hasAuthority("LIBRARIAN") && (
+              <Tab label="add book" onClick={this.onAddBookClick} />
+            )}
+            <Tab
+              label="dashboard"
+              onClick={() => {
+                this.props.history.push("/dashboard");
+              }}
+            />
+            <UserAvatar />
+
+          </Tabs>
+        </Paper>
+      </div>
     );
   }
 }
 
-const headerWithRouter = withRouter(Header);
-export default connect(null, { logout })(headerWithRouter);
+export default withRouter(Header);
