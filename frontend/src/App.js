@@ -24,6 +24,7 @@ function App() {
             <Switch>
               <SecureRoute exact path="/dashboard" component={DashBoard} />
               <SecureRoute exact path="/addBook" component={AddBook} />
+              <SecureRoute exact path="/editBook/:id" component={AddBook} />
             </Switch>
           </div>
         </Router>

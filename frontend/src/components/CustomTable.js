@@ -18,6 +18,8 @@ import axios from "axios";
 import TableHead from "@material-ui/core/TableHead";
 import Button from "@material-ui/core/Button";
 import { hasAuthority } from "../utils";
+import { withRouter } from "react-router-dom";
+
 
 const useStyles1 = makeStyles((theme) => ({
   root: {
@@ -122,7 +124,7 @@ const useStyles2 = makeStyles({
   },
 });
 
-export default function CustomPaginationActionsTable(props) {
+function CustomPaginationActionsTable(props) {
   // const classes = useStyles2();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
@@ -159,17 +161,24 @@ export default function CustomPaginationActionsTable(props) {
     loadBooks(props.searchParams);
   };
 
+  const onBookEdit = async(id)=>{
+  props.history.push(`/editBook/${id}`);
+  }
+
   return (
     <TableContainer component={Paper}>
-      <Table  aria-label="custom pagination table">
+      <Table aria-label="custom pagination table" size="small">
         <TableHead>
           <TableRow>
-            <TableCell>title</TableCell>
-            <TableCell component="th" scope="row">
+            <TableCell margin="none">title</TableCell>
+            <TableCell margin="none" padding='none' size='small'>
               quantity
             </TableCell>
-            <TableCell component="th" scope="row">
+            <TableCell margin="none" padding='none' >
               author name
+            </TableCell>
+            <TableCell margin="none" padding='none' align="center" colSpan={2}>
+              actions
             </TableCell>
           </TableRow>
         </TableHead>
@@ -179,13 +188,14 @@ export default function CustomPaginationActionsTable(props) {
             : rows
           ).map((row) => (
             <TableRow key={row.id}>
-              <TableCell>{row.title}</TableCell>
-              <TableCell>{row.quantity}</TableCell>
-              <TableCell>{row.authorName}</TableCell>
+              <TableCell size='small' margin="none">{row.title}</TableCell>
+              <TableCell  size='small' margin="none" padding='none'>{row.quantity}</TableCell>
+              <TableCell size='small' margin="none" padding='none'>{row.authorName}</TableCell>
               {hasAuthority("LIBRARIAN") && (
-                <TableCell>
+                <TableCell margin="none" padding='none' size='small'>
                   <Button
                     color="secondary"
+                    style={{ margin: 0 }}
                     onClick={() => {
                       onBookDelete(row.id);
                     }}
@@ -194,34 +204,52 @@ export default function CustomPaginationActionsTable(props) {
                   </Button>
                 </TableCell>
               )}
+              {hasAuthority("LIBRARIAN") && (
+                <TableCell margin="none"  padding='none' size='small'>
+                  <Button
+                    color="primary"
+                    style={{ margin: 0 }}
+                    onClick={() => {
+                      onBookEdit(row.id);
+                    }}
+                  >
+                    EDIT
+                  </Button>
+                </TableCell>
+              )}
             </TableRow>
           ))}
 
-          {emptyRows > 0 && (
-            <TableRow style={{ height: 53 * emptyRows }}>
-              <TableCell colSpan={6} />
-            </TableRow>
-          )}
+          {
+            //   {emptyRows > 0 && (
+            //   <TableRow style={{ height: 53 * emptyRows }}>
+            //     <TableCell colSpan={6} />
+            //   </TableRow>
+            // )}
+          }
         </TableBody>
-        <TableFooter>
-          <TableRow>
-            <TablePagination
-              rowsPerPageOptions={[5, 10, 25, { label: "All", value: -1 }]}
-              colSpan={3}
-              count={rows.length}
-              rowsPerPage={rowsPerPage}
-              page={page}
-              SelectProps={{
-                inputProps: { "aria-label": "rows per page" },
-                native: true,
-              }}
-              onChangePage={handleChangePage}
-              onChangeRowsPerPage={handleChangeRowsPerPage}
-              ActionsComponent={TablePaginationActions}
-            />
-          </TableRow>
-        </TableFooter>
+        {
+          // <TableFooter>
+          //   <TableRow>
+          //   <TablePagination
+          //     rowsPerPageOptions={[5, 10, 25, { label: "All", value: -1 }]}
+          //     colSpan={3}
+          //     count={rows.length}
+          //     rowsPerPage={rowsPerPage}
+          //     page={page}
+          //     SelectProps={{
+          //       inputProps: { "aria-label": "rows per page" },
+          //       native: true,
+          //     }}
+          //     onChangePage={handleChangePage}
+          //     onChangeRowsPerPage={handleChangeRowsPerPage}
+          //     ActionsComponent={TablePaginationActions}
+          //   />
+          // </TableRow>
+          // </TableFooter>
+        }
       </Table>
     </TableContainer>
   );
 }
+export default withRouter(CustomPaginationActionsTable);

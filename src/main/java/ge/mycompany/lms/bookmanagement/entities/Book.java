@@ -39,4 +39,6 @@ public class Book {
     @NotNull(message = "quantity should not be empty")
     private Integer quantity;
 
+
+
 }

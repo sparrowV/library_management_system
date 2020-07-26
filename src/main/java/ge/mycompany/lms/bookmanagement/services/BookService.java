@@ -6,6 +6,7 @@ import ge.mycompany.lms.usermanagement.entities.LmsUserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.security.Principal;
 import java.util.List;
 
 @Service
@@ -38,5 +39,9 @@ public class BookService {
 
     public void delete(Long id) {
         bookRepository.deleteById(id);
+    }
+
+    public Book getById(Long id) {
+        return bookRepository.findById(id).get();
     }
 }

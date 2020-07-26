@@ -6,9 +6,10 @@ export const addBook = (book) =>  async (dispatch) => {
 
     console.log(book);
     // const res =await axios.post("api/ssbooks/add", book);
+    const method = book.id ? 'PUT':'POST';
     await axios({
-        method: "post",
-        url: "api/books/add",
+        method: method,
+        url: "/api/books",
         data: book,
         headers: {
             "Content-Type": "application/json",

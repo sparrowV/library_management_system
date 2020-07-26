@@ -37,7 +37,6 @@ class DashBoard extends React.Component {
     return (
       <div>
         <Header />
-        <div>DashBoard</div>
         <div style={style}>
           <FindBook onSearchBook={this.onSearchBook} />
           <CustomPaginationActionsTable

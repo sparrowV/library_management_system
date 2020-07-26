@@ -18,10 +18,8 @@ class Header extends React.Component {
     this.state = { currentTab: 0 };
   }
 
-
-
   onTabChange(event, value) {
-    console.log(value);
+    console.log("here "+value);  
     this.setState({ currentTab: value });
   }
 
@@ -43,15 +41,17 @@ class Header extends React.Component {
             textColor="primary"
             onChange={this.onTabChange}
           >
-            {hasAuthority("LIBRARIAN") && (
-              <Tab label="add book" onClick={this.onAddBookClick} />
-            )}
-            <Tab
+          <Tab
               label="dashboard"
               onClick={() => {
                 this.props.history.push("/dashboard");
               }}
-            />
+            />  
+
+            {hasAuthority("LIBRARIAN") && (
+              <Tab label="add book" onClick={this.onAddBookClick} />
+            )}
+            
             <UserAvatar />
 
           </Tabs>

@@ -5,6 +5,7 @@ import  Box from '@material-ui/core/Box';
 import {addBook} from '../actions/bookActions';
 import {connect} from 'react-redux';
 import Header from './Header';
+import axios from 'axios';
 
 class AddBook extends React.Component{
     constructor(){
@@ -20,6 +21,16 @@ class AddBook extends React.Component{
         this.onChange = this.onChange.bind(this);
     }
 
+    async componentDidMount(){
+      const bookId = this.props.match.params.id;
+      console.log("book id ="+bookId);
+      if(bookId){
+          const res = await axios.get(`/api/books/${bookId}`);
+            this.setState({...res.data});
+            // console.log({...book});
+        }
+    }
+
      async onSubmit(e){
         e.preventDefault();
         const book = {
@@ -27,6 +38,10 @@ class AddBook extends React.Component{
           'location':this.state.location,
           'authorName':this.state.authorName,
           'quantity':this.state.quantity
+        }
+        const bookId = this.props.match.params.id;
+        if(bookId){
+          book.id = bookId;
         }
          await this.props.addBook(book);
         this.props.history.push('/dashboard');
