@@ -36,7 +36,7 @@ class DashBoard extends React.Component {
 
     return (
       <div>
-        <Header />
+        <Header selectedTabIndex={0} />
         <div style={style}>
           <FindBook onSearchBook={this.onSearchBook} />
           <CustomPaginationActionsTable

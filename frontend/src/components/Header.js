@@ -10,12 +10,12 @@ import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 
 
 class Header extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.onTabChange = this.onTabChange.bind(this);
     this.onAddBookClick = this.onAddBookClick.bind(this);
-    this.state = { currentTab: 0 };
+    this.state = { currentTab: props.selectedTabIndex };
   }
 
   onTabChange(event, value) {

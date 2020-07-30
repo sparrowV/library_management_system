@@ -129,31 +129,38 @@ function CustomPaginationActionsTable(props) {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [rows, setRows] = React.useState([]);
+  const [totalCount,setTotalCount] = React.useState(0);
 
   var emptyRows = 0;
 
-  const loadBooks = async (searchParams) => {
-    const res = await axios.get("api/books", {
-      params: props.searchParams,
+  const loadBooks = async (searchParams,pageNum,pageSize) => {
+    searchParams.pageNum = pageNum;
+    searchParams.pageSize = pageSize;
+    const res = await axios.get("api/books/pageable", {
+      params: searchParams,
     });
-    setRows(res.data);
+    console.log("data is  "+res.data);
+    setRows(res.data.content);
+    setTotalCount(res.data.totalElements);
     emptyRows =
       rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
   };
 
   React.useEffect(() => {
     if (Object.keys(props.searchParams).length > 0) {
-      loadBooks(props.searchParams);
+      loadBooks(props.searchParams,0,rowsPerPage);
     }
   }, [props.searchParams]);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
+    loadBooks(props.searchParams,newPage,rowsPerPage);
   };
 
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
+    loadBooks(props.searchParams,0,parseInt(event.target.value, 10));
   };
 
   const onBookDelete = async (id) => {
@@ -164,8 +171,16 @@ function CustomPaginationActionsTable(props) {
   const onBookEdit = async(id)=>{
   props.history.push(`/editBook/${id}`);
   }
+  {
+    //   (
+    //   rowsPerPage > 0
+    //   ? rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+    //   : rows
+    // )
+    }
 
   return (
+    
     <TableContainer component={Paper}>
       <Table aria-label="custom pagination table" size="small">
         <TableHead>
@@ -183,10 +198,10 @@ function CustomPaginationActionsTable(props) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {(rowsPerPage > 0
-            ? rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-            : rows
-          ).map((row) => (
+
+          { 
+          (rows)
+          .map((row) => (
             <TableRow key={row.id}>
               <TableCell size='small' margin="none">{row.title}</TableCell>
               <TableCell  size='small' margin="none" padding='none'>{row.quantity}</TableCell>
@@ -229,24 +244,24 @@ function CustomPaginationActionsTable(props) {
           }
         </TableBody>
         {
-          // <TableFooter>
-          //   <TableRow>
-          //   <TablePagination
-          //     rowsPerPageOptions={[5, 10, 25, { label: "All", value: -1 }]}
-          //     colSpan={3}
-          //     count={rows.length}
-          //     rowsPerPage={rowsPerPage}
-          //     page={page}
-          //     SelectProps={{
-          //       inputProps: { "aria-label": "rows per page" },
-          //       native: true,
-          //     }}
-          //     onChangePage={handleChangePage}
-          //     onChangeRowsPerPage={handleChangeRowsPerPage}
-          //     ActionsComponent={TablePaginationActions}
-          //   />
-          // </TableRow>
-          // </TableFooter>
+          <TableFooter>
+            <TableRow>
+            <TablePagination
+              rowsPerPageOptions={[5, 10, 25, { label: "All", value: -1 }]}
+              colSpan={3}
+              count={totalCount}
+              rowsPerPage={rowsPerPage}
+              page={page}
+              SelectProps={{
+                inputProps: { "aria-label": "rows per page" },
+                native: true,
+              }}
+              onChangePage={handleChangePage}
+              onChangeRowsPerPage={handleChangeRowsPerPage}
+              ActionsComponent={TablePaginationActions}
+            />
+          </TableRow>
+          </TableFooter>
         }
       </Table>
     </TableContainer>

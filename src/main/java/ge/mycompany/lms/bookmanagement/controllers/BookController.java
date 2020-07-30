@@ -36,6 +36,7 @@ public class BookController {
     }
 
 
+
     @PutMapping
     public  ResponseEntity<?> update(@Valid @RequestBody Book book,BindingResult result){
         ResponseEntity<?> errorsMap = MapValidationErrorService.MapValidationService(result);
@@ -55,6 +56,16 @@ public class BookController {
     @PreAuthorize("hasAuthority('LIBRARIAN')")
     public ResponseEntity<?> getById(@PathVariable Long id){
         return new ResponseEntity<Book>(bookService.getById(id),HttpStatus.OK);
+    }
+
+
+    @GetMapping("/pageable")
+    public ResponseEntity<?> getBooksByPage(@RequestParam String title,
+                                            @RequestParam String authorName,
+                                            @RequestParam(defaultValue = "0") Integer pageNum,
+                                            @RequestParam(defaultValue = "10") Integer pageSize
+                                            ){
+        return new ResponseEntity<>(bookService.getBooksByPage(title,authorName,pageNum,pageSize),HttpStatus.OK);
     }
 
     @GetMapping

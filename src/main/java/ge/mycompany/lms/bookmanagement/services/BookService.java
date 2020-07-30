@@ -4,6 +4,8 @@ import ge.mycompany.lms.bookmanagement.entities.Book;
 import ge.mycompany.lms.bookmanagement.repositories.BookRepository;
 import ge.mycompany.lms.usermanagement.entities.LmsUserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.security.Principal;
@@ -33,7 +35,7 @@ public class BookService {
     }
 
     public List<Book> findBook(String title, String authorName) {
-        return bookRepository.findByTitleOrAuthorName(title,authorName);
+        return bookRepository.findByTitleOrAuthorName(title, authorName);
 
     }
 
@@ -43,5 +45,11 @@ public class BookService {
 
     public Book getById(Long id) {
         return bookRepository.findById(id).get();
+    }
+
+
+    public Page<Book> getBooksByPage(String title, String authorName, int pageNum, int size) {
+        PageRequest pageReq = PageRequest.of(pageNum, size);
+        return bookRepository.findByTitleOrAuthorName(title,authorName,pageReq);
     }
 }

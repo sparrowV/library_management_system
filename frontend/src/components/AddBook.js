@@ -55,7 +55,7 @@ class AddBook extends React.Component{
     render(){
         return(
           <div>
-          <Header/>
+          <Header  selectedTabIndex={1} />
           <form
             onSubmit={this.onSubmit}
             className="login-form"
